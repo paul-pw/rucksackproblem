@@ -1,0 +1,228 @@
+\documentclass[12pt, a4paper, ngerman]{article}
+\title{Das Rucksackproblem}
+\author{Paul Walker und Tom Hofer}
+\date{30.06.2022}
+\newcommand{\Autor}{Paul Walker und Tom Hofer}
+\newcommand{\Kurs}{TINF20IN}
+\newcommand{\MatrikelNummer}{3610783, XXXXXX} % TODO(Tom) hier matrikelnummer
+\newcommand{\Was}{Hausarbeit Rucksackproblem}
+\newcommand{\Studiengang}{Diskrete Mathematik}
+
+\usepackage{biblatex} % für bibliografie
+\usepackage{hyperref} % für links zum klicken
+\usepackage{color}    % für Farben (benötigt für listings)
+\usepackage{listings} % code schnipsel
+\usepackage[ngerman]{babel} % lokalisierung der Titel (Inhaltsverzeichniss)
+\usepackage{bookmark} % bookmarks für das PDF
+\usepackage{csquotes} % korrekte quotes
+\usepackage[version=3]{acro} % akronyme
+\usepackage{geometry} % seitengeometrie (margin etc einstellen)
+\usepackage{parskip}  % zeilenabstand bei neuem paragraph statt indentierung
+\usepackage{fancyhdr} % header und footer
+\usepackage{array}    % für bessere Tabellen
+\usepackage{titlesec} % um die Titel anzupassen
+\usepackage{amsfonts} % für \mathbb
+
+\hypersetup{
+  pdfauthor={\Autor},
+  pdftitle={\Was},
+  hidelinks
+}
+
+\geometry{
+  a4paper,
+  left=25mm,
+  right=25mm,
+  headheight=125mm,
+  top=35mm,
+  bottom=30mm,
+  footskip=15mm
+}
+
+% title setup 
+% make paragraph have a newline
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+% add bibliography
+\addbibresource{bibliography.bib}
+
+% header and footer setup
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\Was}
+\lhead{\leftmark}
+\lfoot{Autor: \Autor, Kurs: \Kurs}
+\rfoot{Seite \thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+\fancypagestyle{simple}{
+  \fancyhf{}
+  \rhead{\Was}
+  \lfoot{Autor: \Autor, Kurs: \Kurs}
+  \rfoot{Seite \thepage}
+}
+
+% acronyms
+\acsetup{
+  list/display = used,
+  pages/display = first
+}
+
+% TODO Acronyms here
+%\DeclareAcronym{mvvm}{short=MVVM, long=Model-View-Viewmodel}
+
+\newcommand{\reals}{\ensuremath{\reals}}
+\newcommand{\natnums}{\ensuremath{\natnums}}
+
+% code snippet setup
+\renewcommand{\lstlistingname}{Code-Auszug}
+\renewcommand{\lstlistlistingname}{Liste der Code-Auszüge}
+
+\definecolor{black}{rgb}{0,0,0}
+\definecolor{green}{rgb}{0,0.5,0}
+\definecolor{orange}{rgb}{1,0.45,0.13}		
+\definecolor{brown}{rgb}{0.69,0.31,0.31}
+
+% JavaScript
+\lstdefinelanguage{JavaScript}{
+    morekeywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+    morecomment=[s]{/*}{*/},
+    morecomment=[l]//,
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\lstdefinestyle{light}{
+    % General design
+    basicstyle={\footnotesize\ttfamily},   
+    frame=b,
+    % line-numbers
+    xleftmargin={0.75cm},
+    numbers=left,
+    stepnumber=1,
+    firstnumber=1,
+    numberfirstline=true,	
+    % Quellcode design
+    identifierstyle=\color{black},
+    keywordstyle=\color{blue}\bfseries,
+    ndkeywordstyle=\color{green}\bfseries,
+    stringstyle=\color{orange}\ttfamily,
+    commentstyle=\color{brown}\ttfamily,
+    % Quellcode
+    language=JavaScript,
+    alsodigit={.:;},
+    tabsize=2,
+    showtabs=false,
+    showspaces=false,
+    showstringspaces=false,
+    extendedchars=true,
+    breaklines=true,
+}
+
+\begin{document}
+
+% Titlepage
+\makeatletter
+\begin{titlepage}
+  \begin{center}
+    \vspace*{1cm}
+    {\Huge\scshape \Was}\\[2cm]
+    \begin{center}
+      \linespread{1}\Huge \@title\\[2cm]
+    \end{center}
+    {\large \Studiengang}\\
+    {\large Dualen Hochschule Baden-Württemberg\\ Stuttgart}\\[2cm]
+    {\large von}\\
+    {\large\bfseries \@author}
+    \vfill
+  \end{center}
+  \begin{tabular}{l@{\hspace{2cm}}l}
+    Matrikelnummer: & \MatrikelNummer \\
+    Abgabedatum:    & \@date          \\
+  \end{tabular}
+\end{titlepage}
+\makeatother
+
+% Table of content
+\tableofcontents
+
+% TODO entfernen wenn nicht weiter benötigt
+\newpage
+\thispagestyle{simple}
+\printacronyms[name=Abkürzungsverzeichnis, heading=section*]
+\newpage
+
+%%%%%%
+% Content here
+%%%%%% 
+
+\section{Einleitung}
+
+\section{Problemstellung}
+
+Ein Rucksack hat eine bestimmte Tragekapazität (z.b. 5 Kg)
+ein Dieb packt bei einem Wohnungsraub sein Diebesgut in diesen Rucksack.
+In der Wohnung befinden sich Gegenstände mit unterschiedlichem Gewicht und Geldwert.
+Gegenstände können verschieden oft vorhanden sein
+(z.b. Schmuck 200g 1000€ 1stk, Elektrogeräte 2kg 500€ 3stk, Kleidung 1kg 100€ 1stk, Geld 300g 200€ 2stk).
+Der Dieb möchte bei dem Wohnungsraub einen möglichst großen Gewinn erzielen,
+er möchte also den Geldwert der in den Rucksack gepackten Gegenstände maximieren,
+da der Rucksack aber nur eine bestimmte Kapazität hat, muss zuerst ein Optimierungsproblem gelöst werden.
+Dieses Problem nennt sich das \emph{Rucksackproblem} (oder Englisch: \emph{Knapsack Problem})
+
+Mathematisch formuliert: Es gibt \(m\) Gegenstände.
+Sei \(c_i\in\reals : i\in I\) der Wert des Gegenstandes \(i\),
+\(a_i\in\reals : i\in I\) das Gewicht des Gegenstandes \(i\)
+und \(u_i\in \natnums : i\in I\) wie oft der Gegenstand vorhanden ist jeweils mit \(i\in I = \{1 ,2 ,\ldots ,m\} \).
+Die Tragekapazität des Rucksacks ist \(b\in\reals\).
+Dann wird für den maximal erreichbaren Geldwert in Abhängigkeit zur Tragekapazität des Rucksacks \(f(b)\) definiert:
+
+\[
+  f(b)=\max(\sum_{i=1}^m c_i x_i : \sum_{i=1}^m a_i x_i\leq b, 0\leq x_i\leq u_i,  x_i\in\natnums, i\in I)
+\]
+
+Das hier dargestellte Rucksackproblem ist ein begrenztes Rucksackproblem.
+Beim unbegrenzen Rucksackproblem kann \(x_i\) jeden beliebigen wert in \(\natnums \) annehmen und ist nicht von \(u_i\) begrenze.
+
+Häufigste Rucksackproblem ist aber das 0-1-Rucksackproblem.
+ein Begrenztes Rucksackproblem kann zu einem 0-1-Rucksackproblem vereinfacht werden, indem \(u_i=1\). Dann gilt:
+
+\[
+  f(b)=\max(\sum_{i\in I}c_i : \sum_{i\in I}a_i\leq b, i\in I)
+\]
+
+Anschaulich bedeutet das, dass jeder Gegenstand nur genau einmal vorhanden ist
+und daher auch nur einmal mitgenommen werden kann. % TODO umwandlung normales Rucksack problem zu 01 problem
+
+Das Rucksackproblem gehört zur Kategorie der am schwersten zu lösenden Problemen,
+den \(\mathcal{NP}\)-complete Problemen\cite{mainKnapsack}.
+In der Praxis gibt es aber einige solide Lösungsverfahren und einige Approximationsverfahren.
+
+\subsection{NP-complete Probleme}
+
+\section{Praktische Anwendungen}
+
+Das Rucksackproblem tritt in der realen Welt häufiger bei Optimierungsproblemen,
+speziell bei Problemen in der Ressourcen Allokation auf.
+Man denke beispielsweise an einen LKW, der ein bestimmtes Transportvolumen hat und Güter,
+die bei verschiedenem Volumen einen unterschiedlichen Gewinn erzielen.
+Oder ein Containerschiff das ein bestimmtes Gewicht Tragen kann
+und Container mitunterschiedlichem Gewicht und Gewinn.
+
+% TODO remove potentially-->
+Eine Problemvariante des Rucksackproblems, die Subset sum wird in der Kryptographie verwendet,
+beispielsweise beim Merkle-Hellman-Kryptosystem (das sich nicht als besonders sicher herausstellte)
+
+\section{Lösungsansätze}
+
+viele Lösungsansätze basieren auf dynamische Programmierung
+
+\section{Dynamische Programmierung}
+
+
+\printbibliography
+
+\end{document}
