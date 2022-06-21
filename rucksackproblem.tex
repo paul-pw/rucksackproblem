@@ -74,8 +74,8 @@
 % TODO Acronyms here
 %\DeclareAcronym{mvvm}{short=MVVM, long=Model-View-Viewmodel}
 
-\newcommand{\reals}{\ensuremath{R}}
-\newcommand{\natnums}{\ensuremath{N}}
+\newcommand{\reals}{\ensuremath{\mathbb{R}}}
+\newcommand{\natnums}{\ensuremath{\mathbb{N}}}
 
 % code snippet setup
 \renewcommand{\lstlistingname}{Code-Auszug}
@@ -163,43 +163,46 @@
 
 \section{Problemstellung}
 
-Ein Rucksack hat eine bestimmte Tragekapazität (z.b. 5 Kg)
+Ein Rucksack hat eine bestimmte Tragekapazität (z.b. 6 Kg)
 ein Dieb packt bei einem Wohnungsraub sein Diebesgut in diesen Rucksack.
 In der Wohnung befinden sich Gegenstände mit unterschiedlichem Gewicht und Geldwert.
 Gegenstände können verschieden oft vorhanden sein
-(z.b. Schmuck 200g 1000€ 1stk, Elektrogeräte 2kg 500€ 3stk, Kleidung 1kg 100€ 1stk, Geld 300g 200€ 2stk).
+(z.b. Schmuck 4kg 500€ 1stk, Elektrogeräte 3kg 400€ 3stk, Schuhe 2kg 300€ 1stk, Geld 1kg 200€ 2stk).
 Der Dieb möchte bei dem Wohnungsraub einen möglichst großen Gewinn erzielen,
 er möchte also den Geldwert der in den Rucksack gepackten Gegenstände maximieren,
 da der Rucksack aber nur eine bestimmte Kapazität hat, muss zuerst ein Optimierungsproblem gelöst werden.
 Dieses Problem nennt sich das \emph{Rucksackproblem} (oder Englisch: \emph{Knapsack Problem})
 
+In diesem Beispiel wäre die beste Kombination: 1stk Geld, 1stk Schuhe, 1stk Elektrogeräte
+damit wird ein Gesamtgewinn von 900€ und einem Gesammtgewicht von 6kg erreicht.
+
 Mathematisch formuliert: Es gibt \(m\) Gegenstände.
-Sei \(c_i\in\reals : i\in I\) der Wert des Gegenstandes \(i\),
-\(a_i\in\reals : i\in I\) das Gewicht des Gegenstandes \(i\)
+Sei \(c_i\in\natnums : i\in I\) der Wert des Gegenstandes \(i\),
+\(a_i\in\natnums : i\in I\) das Gewicht des Gegenstandes \(i\)
 und \(u_i\in \natnums : i\in I\) wie oft der Gegenstand vorhanden ist jeweils mit \(i\in I = \{1 ,2 ,\ldots ,m\} \).
-Die Tragekapazität des Rucksacks ist \(b\in\reals\).
+Die Tragekapazität des Rucksacks ist \(b\in\natnums\).
 Dann wird für den maximal erreichbaren Geldwert in Abhängigkeit zur Tragekapazität des Rucksacks \(f(b)\) definiert:
 
 \[
-  f(b)=\max(\sum_{i=1}^m c_i x_i : \sum_{i=1}^m a_i x_i\leq b, 0\leq x_i\leq u_i,  x_i\in\natnums, i\in I)
+  f(b):=\max(\sum_{i=1}^m c_i x_i : \sum_{i=1}^m a_i x_i\leq b, 0\leq x_i\leq u_i,  x_i\in\natnums, i\in I)
 \]
 
 Das hier dargestellte Rucksackproblem ist ein begrenztes Rucksackproblem.
-Beim unbegrenzen Rucksackproblem kann \(x_i\) jeden beliebigen wert in \(\natnums \) annehmen und ist nicht von \(u_i\) begrenze.
+Beim unbegrenzten Rucksackproblem kann \(x_i\) jeden beliebigen wert in \(\natnums \) annehmen und ist nicht von \(u_i\) begrenze.
 
 Häufigste Rucksackproblem ist aber das 0-1-Rucksackproblem.
 ein Begrenztes Rucksackproblem kann zu einem 0-1-Rucksackproblem vereinfacht werden, indem \(u_i=1\). Dann gilt:
 
 \[
-  f(b)=\max(\sum_{i\in I}c_i : \sum_{i\in I}a_i\leq b, i\in I)
+  f(b):=\max(\sum_{i\in I}c_i : \sum_{i\in I}a_i\leq b, i\in I)
 \]
 
 Anschaulich bedeutet das, dass jeder Gegenstand nur genau einmal vorhanden ist
-und daher auch nur einmal mitgenommen werden kann. % TODO umwandlung normales Rucksack problem zu 01 problem
+und daher auch nur einmal mitgenommen werden kann. Da das 0-1-Rucksackproblem das Häufigste in der Kategorie der Rucksackprobleme ist, soll der fokus im folgenden auf dem 0-1-Rucksackproblem liegen % TODO umwandlung normales Rucksack problem zu 01 problem
 
 Das Rucksackproblem gehört zur Kategorie der am schwersten zu lösenden Problemen,
 den \(\mathcal{NP}\)-complete Problemen~\cite{mainKnapsack}.
-In der Praxis gibt es aber einige solide Lösungsverfahren und einige Approximationsverfahren.
+In der Praxis gibt es aber einige Lösungsverfahren und einige Approximationsverfahren.
 
 \subsection{NP-complete Probleme}
 
@@ -212,14 +215,46 @@ die bei verschiedenem Volumen einen unterschiedlichen Gewinn erzielen.
 Oder ein Containerschiff das ein bestimmtes Gewicht Tragen kann
 und Container mitunterschiedlichem Gewicht und Gewinn.
 
-% TODO remove potentially-->
+% TODO remove potentially
 Eine Problemvariante des Rucksackproblems, die Subset sum wird in der Kryptographie verwendet,
 beispielsweise beim Merkle-Hellman-Kryptosystem (das sich nicht als besonders sicher herausstellte)
 
 \section{Lösungsansätze}
-viele Lösungsansätze basieren auf dynamische Programmierung
 
 \section{Dynamische Programmierung}
+
+Das im folgenden vorgestellte verfahren funktioniert zur lösung des 0-1-Rucksackproblems
+
+\begin{table}
+  \renewcommand{\arraystretch}{1.2}
+  \centering
+  \begin{tabular}{c|c|c}
+    wert & gewicht & index \\
+    \hline
+    500€ & 4kg     & 1     \\
+    400€ & 3kg     & 2     \\
+    300€ & 2kg     & 3     \\
+    200€ & 1kg     & 4
+  \end{tabular}
+  \caption{Werte}
+  \label{table:1}
+\end{table}
+
+\begin{table}
+  \renewcommand{\arraystretch}{1.2}
+  \centering
+  \begin{tabular}{c |c c c c c c c}
+      & 0kg & 1kg  & 2kg  & 3kg  & 4kg  & 5kg  & 6kg  \\
+    \hline
+    0 & 0€  & 0€   & 0€   & 0€   & 0€   & 0€   & 0€   \\
+    1 & 0€  & 0€   & 0€   & 0€   & 500€ & 500€ & 500€ \\
+    2 & 0€  & 0€   & 0€   & 400€ & 500€ & 500€ & 500€ \\
+    3 & 0€  & 0€   & 300€ & 400€ & 500€ & 700€ & 800€ \\
+    4 & 0€  & 200€ & 300€ & 500€ & 600€ & 700€ & 900€
+  \end{tabular}
+  \caption{Lösungsmatrix}
+  \label{table:2}
+\end{table}
 
 \newpage
 \printbibliography
