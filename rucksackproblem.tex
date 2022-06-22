@@ -221,7 +221,7 @@ die umgeformte Version des Problems hat dabei dieselben Lösungen wie das Origin
 Das heißt es können die bekannten Lösungsverfahren zur Lösung des Rucksackproblems
 auch bei anderen ganzzahligen linearen Optimierungsproblemen verwendet werden.
 
-% TODO remove potentially
+% TODO vielleicht entfernen.
 Eine Problemvariante des Rucksackproblems, die Subset sum wird in der Kryptographie verwendet,
 beispielsweise beim Merkle-Hellman-Kryptosystem (das sich nicht als besonders sicher herausstellte)
 
@@ -309,6 +309,12 @@ def gilmore_gomoroy(v, c):
 
   return m
 \end{lstlisting}
+
+Der Algorithmus hat die Komplexität \(O(nc)\),
+wobei \(c\) die maximale Kapazität des Rucksacks darstellt.
+Algorithmen mit einer solchen Komplexität werden \emph{pseudo- polynomial} genannt~\cite{scheiterhauer2008}.
+
+\subsection{Annäherungsalgorithmen}
 
 \newpage
 \printbibliography
