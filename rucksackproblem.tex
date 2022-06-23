@@ -122,6 +122,8 @@
 }
 
 \begin{document}
+\raggedright % sorgt dafür das alles strikt links ausgerichtet wird (und sorgt für mehr seiten)
+
 
 % Titlepage
 \makeatletter
@@ -227,6 +229,16 @@ beispielsweise beim Merkle-Hellman-Kryptosystem (das sich nicht als besonders si
 
 \section{Lösungsansätze}
 
+\subsection{Brute Force}
+
+Gibt es \(n\) Elemente zur Auswahl,
+so können gibt es \(2^n\) Möglichkeiten verschiedene Kombinationen von Gegenständen daraus zu wählen.
+Bei jeder Itteration wird dann überprüft,
+ob die jetzige Kombination von Gegenständen die beste bisher ist.
+Ist sie das, wird die bisher beste Kombination ersetzt und der neue beste Wert gespeichert~\cite{paper102}.
+Der Algorithmus hat damit eine Komplexität von \(O(n2^n)\).
+Er ist damit der schlechtest mögliche Algorithmus.
+
 \subsection{Algorhitmus von Gilmore und Gomoroy}
 
 Das im Folgenden vorgestellte Verfahren funktioniert zur Lösung des 0-1-Rucksackproblems.
@@ -317,6 +329,23 @@ Algorithmen mit einer solchen Komplexität werden \emph{pseudo- polynomial} gena
 \subsection{Annäherungsalgorithmen}
 
 
+\subsubsection{Greedy Algorhitmus}
+
+% TODO vielleicht ein beispiel hier?
+
+Bei vielen Optimierungsproblemen wird ein Greedy Algorithmus eingesetzt,
+um das Problem zu lösen oder die Lösung zumindest gut annähern zu können~\cite{paper102}.
+
+Für das 0-1-Rucksackproblem Problem gibt es mehrere Greedy Strategien.
+
+\begin{enumerate}
+  \item Schritt für Schritt Gegenstände mit absteigendem Wert wählen und in den Rucksack Packen.
+  \item Schritt für Schritt Gegenstände mit aufsteigendem Gewicht in den Rucksack Packen.
+  \item Schritt für Schritt Gegenstände mit aufsteigendem Wert pro Gewicht in den Rucksack Packen.
+\end{enumerate}
+
+Dabei erzielt die letzte Strategie in der Praxis die besten Ergebnisse~\cite{paper102}.\\
+Die Zeitkomplexität dieses Algorithmus ist \(O(n\log n)\)
 
 \newpage
 \printbibliography
