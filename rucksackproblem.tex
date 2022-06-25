@@ -199,9 +199,9 @@ Ein Begrenztes Rucksackproblem kann zu einem 0-1-Rucksackproblem vereinfacht wer
 \]
 
 Anschaulich bedeutet das, dass jeder Gegenstand nur genau einmal vorhanden ist
-und daher auch nur einmal mitgenommen werden kann. Da das 0-1-Rucksackproblem das Häufigste in der Kategorie der Rucksackprobleme ist, soll der Fokus im folgenden auf dem 0-1-Rucksackproblem liegen. % TODO umwandlung normales Rucksack problem zu 01 problem
+und daher auch nur einmal mitgenommen werden kann. Da das 0-1-Rucksackproblem das Häufigste in der Kategorie der Rucksackprobleme ist, soll der Fokus im Folgenden auf dem 0-1-Rucksackproblem liegen. % TODO umwandlung normales Rucksack problem zu 01 problem
 
-Das Rucksackproblem gehört zur Kategorie der am schwersten zu lösenden Problemen,
+Das Rucksackproblem gehört zur Kategorie der am schwersten zu lösenden Probleme,
 den \(\mathcal{NP}\)-complete Problemen~\cite{mainKnapsack}.
 In der Praxis gibt es aber einige Lösungsverfahren und einige Approximationsverfahren.
 
@@ -214,7 +214,7 @@ speziell bei Problemen in der Ressourcen Allokation auf.
 Man denke beispielsweise an einen LKW, der ein bestimmtes Transportvolumen hat und Güter,
 die bei verschiedenem Volumen einen unterschiedlichen Gewinn erzielen.
 Oder ein Containerschiff das ein bestimmtes Gewicht Tragen kann
-und Container mitunterschiedlichem Gewicht und Gewinn.
+und Container mit unterschiedlichem Gewicht und Gewinn.
 
 Zusätzlich zu den praktischen Anwendungen gibt es auch theoretische Anwendungen für das Rucksackproblem.
 Rucksackprobleme sind ganzzahlige lineare Optimierungsprobleme.
@@ -225,14 +225,13 @@ auch bei anderen ganzzahligen linearen Optimierungsproblemen verwendet werden.
 
 % TODO vielleicht entfernen.
 Eine Problemvariante des Rucksackproblems, die Subset sum wird in der Kryptographie verwendet,
-beispielsweise beim Merkle-Hellman-Kryptosystem (das sich nicht als besonders sicher herausstellte)
+beispielsweise beim Merkle-Hellman-Kryptosystem (das sich nicht als besonders sicher herausstellte).
 
 \section{Lösungsansätze}
 
 \subsection{Brute Force}
 
-Gibt es \(n\) Elemente zur Auswahl,
-so können gibt es \(2^n\) Möglichkeiten verschiedene Kombinationen von Gegenständen daraus zu wählen.
+Bei \(n\) zur Auswahl stehender Elemente, gibt es \(2^n\) Möglichkeiten verschiedene Kombinationen von Gegenständen daraus zu wählen.
 Bei jeder Itteration wird dann überprüft,
 ob die jetzige Kombination von Gegenständen die beste bisher ist.
 Ist sie das, wird die bisher beste Kombination ersetzt und der neue beste Wert gespeichert~\cite{paper102}.
