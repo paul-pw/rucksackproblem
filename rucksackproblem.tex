@@ -348,7 +348,8 @@ Der Algorithmus von Bellman und Dantzig ist ein pseudopolynomieller Algorithmus 
 \begin{enumerate}
 \item C ist eine beliebige obere Schanke für den Optimalwert
 \item \(x(0,0):=0, x(0,k):=\infty\) für \(k=1,...,C\)
-\item \textbf{for} j in range(1,n):\\
+\item Berechnune die Teilmengen:\\
+  \textbf{for} j in range(1,n):\\
   \hspace*{5mm}\textbf{for} k in range(0,C):\\
   \hspace*{10mm}s(j,k)=0\\
   \hspace*{10mm}x(j,k)=x(j-1,k)\\
@@ -356,7 +357,8 @@ Der Algorithmus von Bellman und Dantzig ist ein pseudopolynomieller Algorithmus 
   \hspace*{10mm}\textbf{if} \(x(j-1,k-c_j)+w_j <= min\{W,x(j,k)\}:\)\\
   \hspace*{15mm}\(x(j,k)=x(j-1,k-c_j)+w_j\)\\
   \hspace*{15mm}\(s(j,k)=1\)\\
-\item \(k=\max\{i \in \{0,...,C\}:x(n,i)<\infty\}\)\\
+\item Wähle beste zulässige Teilmenge:\\
+  \(k=\max\{i \in \{0,...,C\}:x(n,i)<\infty\}\)\\
   S=\{\}\\
   \textbf{for} j in range(n,1,-1):\\
   \hspace*{5mm}\textbf{if} s(j,k)==1:\\
@@ -364,7 +366,7 @@ Der Algorithmus von Bellman und Dantzig ist ein pseudopolynomieller Algorithmus 
   \hspace*{10mm}\(k=k-c_j\)
 \end{enumerate}
 
-Dieser Algorithmus hat eine Laufzeit von O(nW). Durch den Trick \(C:=\sum_{j\in S}^nc_j\) zu setzten erhält man eine Laufzeit von O(nC).
+Dieser Algorithmus hat eine Laufzeit von O(nW). Durch den Trick \(C:=\sum_{j\in S}^nc_j\) zu setzten erhält man eine Laufzeit von O(nC). Diese O(nC) Schranke ist nicht polynomiell in der Eingabegröße, jedoch erweist sich dieser Algorithmus in der Praxis, für kleinere Zahlen, als effizient.
 
 \cite[Kap. 17]{KombinatorischeOptimierung}
 \FloatBarrier
