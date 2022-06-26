@@ -23,6 +23,8 @@
 \usepackage{titlesec} % um die Titel anzupassen
 \usepackage{amsfonts} % für \mathbb
 
+\usepackage{placeins} % für \FloatBarrier
+
 \hypersetup{
   pdfauthor={\Autor},
   pdftitle={\Was},
@@ -328,8 +330,44 @@ wobei \(c\) die maximale Kapazität des Rucksacks darstellt.
 Algorithmen mit einer solchen Komplexität werden \emph{pseudo- polynomial} genannt~\cite{scheiterhauer2008}.
 
 \subsection{Algorithmus von Bellman und Dantzig}
+\FloatBarrier
+Der Algorithmus von Bellman und Dantzig ist ein pseudopolynomieller Algorithmus für das ganzzahlige Rucksackproblem. Tabelle~\ref{BellmanDantzigIO} zeigt die Ein- und Ausgabewerte des Algorithmus.
+
+\begin{table}
+  \renewcommand{\arraystretch}{1.2}
+  \centering
+  \begin{tabular}{c|c}
+    Eingabe & \(n, c_1,...c_n, w_1,...,w_n\) und W, jeweils aus \natnums \\
+    \hline
+    Ausgabe & Eine Teilmenge \(S \subseteq \{1,...,n\}\) mit \(\sum_{j\in S}w_j \leq W\), die \(\sum_{j \in S}c_j\) maximiert
+  \end{tabular}
+  \caption{Ein- und Ausgabe des Algorithmus}
+  \label{BellmanDantzigIO}
+\end{table}
+
+\begin{enumerate}
+\item C ist eine beliebige obere Schanke für den Optimalwert
+\item \(x(0,0):=0, x(0,k):=\infty\) für \(k=1,...,C\)
+\item \textbf{for} j in range(1,n):\\
+  \hspace*{5mm}\textbf{for} k in range(0,C):\\
+  \hspace*{10mm}s(j,k)=0\\
+  \hspace*{10mm}x(j,k)=x(j-1,k)\\
+  \hspace*{5mm}\textbf{for} k in range(\(c_j\),C):\\
+  \hspace*{10mm}\textbf{if} \(x(j-1,k-c_j)+w_j <= min\{W,x(j,k)\}:\)\\
+  \hspace*{15mm}\(x(j,k)=x(j-1,k-c_j)+w_j\)\\
+  \hspace*{15mm}\(s(j,k)=1\)\\
+\item \(k=\max\{i \in \{0,...,C\}:x(n,i)<\infty\}\)\\
+  S=\{\}\\
+  \textbf{for} j in range(n,1,-1):\\
+  \hspace*{5mm}\textbf{if} s(j,k)==1:\\
+  \hspace*{10mm}\(S=S \cup \{j\}\)\\
+  \hspace*{10mm}\(k=k-c_j\)
+\end{enumerate}
+
+Dieser Algorithmus hat eine Laufzeit von O(nW). Durch den Trick \(C:=\sum_{j\in S}^nc_j\) zu setzten erhält man eine Laufzeit von O(nC).
 
 \cite[Kap. 17]{KombinatorischeOptimierung}
+\FloatBarrier
 
 \subsection{Annäherungsalgorithmen}
 
