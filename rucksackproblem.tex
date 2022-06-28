@@ -22,7 +22,6 @@
 \usepackage{array}    % für bessere Tabellen
 \usepackage{titlesec} % um die Titel anzupassen
 \usepackage{amsfonts} % für \mathbb
-
 \usepackage{placeins} % für \FloatBarrier
 
 \hypersetup{
@@ -72,9 +71,6 @@
   list/display = used,
   pages/display = first
 }
-
-% TODO Acronyms here
-%\DeclareAcronym{mvvm}{short=MVVM, long=Model-View-Viewmodel}
 
 \newcommand{\reals}{\ensuremath{\mathbb{R}}}
 \newcommand{\natnums}{\ensuremath{\mathbb{N}}}
@@ -152,12 +148,7 @@
 % Table of content
 \tableofcontents
 
-% TODO entfernen wenn nicht weiter benötigt
 \newpage
-\thispagestyle{simple}
-\printacronyms[name=Abkürzungsverzeichnis, heading=section*]
-\newpage
-
 %%%%%%
 % Content here
 %%%%%% 
@@ -201,15 +192,36 @@ Ein Begrenztes Rucksackproblem kann zu einem 0-1-Rucksackproblem vereinfacht wer
 \]
 
 Anschaulich bedeutet das, dass jeder Gegenstand nur genau einmal vorhanden ist
-und daher auch nur einmal mitgenommen werden kann. Da das 0-1-Rucksackproblem das Häufigste in der Kategorie der Rucksackprobleme ist, soll der Fokus im Folgenden auf dem 0-1-Rucksackproblem liegen. % TODO umwandlung normales Rucksack problem zu 01 problem
+und daher auch nur einmal mitgenommen werden kann.
+Da das 0-1-Rucksackproblem das Häufigste in der Kategorie der Rucksackprobleme ist,
+soll der Fokus im Folgenden auf dem 0-1-Rucksackproblem liegen.
+% TODO umwandlung normales Rucksack problem zu 01 problem
 
 Das Rucksackproblem gehört zur Kategorie der am schwersten zu lösenden Probleme,
-den NP-vollständigen Problemen~\cite{mainKnapsack}.
+den \(\mathcal{NP}\)-vollständigen Problemen~\cite{mainKnapsack}.
 In der Praxis gibt es aber einige Lösungsverfahren und einige Approximationsverfahren.
 
-\subsection{NP-vollständige Probleme}
-Zusätzlich zur Problemklasse NP gibt es auch die Klasse P. P enthält alle Probleme, welche durch einen polynomiellen Algorithmus gelöst werden können. Die Frage ob \(P = NP\) gilt, konnte bisher weder bestätigt, noch wiederlegt werden. Die NP-vollständigen Probleme sind die schwersten Probleme der Klasse NP, da sie genau dann in polinomieller Zeit gelöst werden können, wenn \(P = NP\) gilt.
-\cite[Kap. 15]{KombinatorischeOptimierung}
+\subsection{\(\mathcal{NP}\)-vollständige Probleme}
+
+Ein Algorithmus ist in polynomer Zeit lösbar,
+wenn für die Zeitkomplexität \(O(n^k)\) gilt.
+Dabei ist \(k\) eine positive ganze Zahl und \(n\) die Komplexität des Eingabewertes.
+Diese Algorithmen haben die Zeitkomplexität \(\mathcal{P}\) (Polynome Zeit).
+
+Algorithmen, die sich nicht mit dieser Zeitkomplexität beschreiben lassen,
+nennt man \(\mathcal{NP}\)-vollständige Probleme.
+Diese Probleme lassen sich nur mithilfe von Nichtdeterministischen Operationen
+in polynomer Zeit lösen.
+Am Modell einer Turing-Maschine erklärt bedeutet Nichtdeterminismus,
+dass der Nächste Zustand nicht unbedingt durch die vorhergehenden Zustände bestimmt ist.
+Während eine Nichtdeterministische Turing-Maschine die richtige Auswahl in polynomer Zeit weiß,
+muss eine deterministische Turing-Maschine alle Möglichkeiten ausprobieren, um die richtige Auswahl zu erhalten
+und benötigt dafür deutlich länger als polynome Zeit.
+\(\mathcal{NP}\)-vollständige Probleme sind daher für einen Computer
+die am schwersten zu lösenden Probleme.
+
+Ob sich \(\mathcal{NP}\)-vollständige Probleme in \(\mathcal{P}\) Probleme umformen lassen,
+ist eine bisher ungelöste Frage~\cite[Kap. 15]{KombinatorischeOptimierung}.
 
 \section{Anwendungen}
 
@@ -222,45 +234,55 @@ und Container mit unterschiedlichem Gewicht und Gewinn.
 
 Zusätzlich zu den praktischen Anwendungen gibt es auch theoretische Anwendungen für das Rucksackproblem.
 Rucksackprobleme sind ganzzahlige lineare Optimierungsprobleme.
-Andere ganzzahlige lineare Optimierungsprobleme können in Rucksackprobleme umgeformt werden\cite{mainKnapsack},
-die umgeformte Version des Problems hat dabei dieselben Lösungen wie das Originalproblem\cite{mainKnapsack}.
+Andere ganzzahlige lineare Optimierungsprobleme können in Rucksackprobleme umgeformt werden~\cite{mainKnapsack},
+die umgeformte Version des Problems hat dabei dieselben Lösungen wie das Originalproblem~\cite{mainKnapsack}.
 Das heißt es können die bekannten Lösungsverfahren zur Lösung des Rucksackproblems
 auch bei anderen ganzzahligen linearen Optimierungsproblemen verwendet werden.
 
 % TODO vielleicht entfernen.
-Eine Problemvariante des Rucksackproblems, die Subset sum wird in der Kryptographie verwendet,
-beispielsweise beim Merkle-Hellman-Kryptosystem (das sich nicht als besonders sicher herausstellte).
+Eine Problemvariante des Rucksackproblems, die Subset Sum wird in der Kryptographie verwendet,
+beispielsweise beim Merkle-Hellman-Kryptosystem.
 
-\section{Lösungsansätze}
+\section{Lösungsansverfahren}
 
 \subsection{Brute Force}
 
 Bei \(n\) zur Auswahl stehender Elemente, gibt es \(2^n\) Möglichkeiten verschiedene Kombinationen von Gegenständen daraus zu wählen.
-Bei jeder Itteration wird dann überprüft,
+Bei jeder Iteration wird dann überprüft,
 ob die jetzige Kombination von Gegenständen die beste bisher ist.
 Ist sie das, wird die bisher beste Kombination ersetzt und der neue beste Wert gespeichert~\cite{paper102}.
 Der Algorithmus hat damit eine Komplexität von \(O(n2^n)\).
 Er ist damit der schlechtest mögliche Algorithmus.
 
-\subsection{Algorhitmus von Gilmore und Gomoroy}
+\subsection{Dynamische Optimierung}
+\label{sec:dyn_opt}
 
 Das im Folgenden vorgestellte Verfahren funktioniert zur Lösung des 0-1-Rucksackproblems.
-Der Algorhitmus von Gilmore un Gomoroy basiert auf \emph{dynamischer Optimierung}.
-Dafür wird das Rucksackproblem zuerst Vollständig reduziert
+In der Literatur wird dieser Algorithmus verschieden genannt.
+In~\cite{scheiterhauer2008} wird dieser Algorithmus \emph{Algorithmus von Gilmore und Gomoroy} genannt,
+in~\cite{KombinatorischeOptimierung} wird der Algorithmus entweder \emph{pseudopolynomieller Algorhitmus} oder
+\emph{Algorithmus von Bellman und Dantzig}~\cite{KombinatorischeOptimierung} genannt,
+in~\cite{paper102,intro_survey} und in anderen Publikationen wird der Algorithmus einfach
+\emph{Algorithmus mit Dynamischer Optimierung} genannt.
+Diese Bezichnung wird hier auch verwendet.
+
+Der hier vorgestellte basiert auf \emph{dynamischer Optimierung}.
+Dafür wird das Rucksackproblem zuerst vollständig reduziert
 und dann schrittweise wieder zum Originalproblem aufgebaut.
-Begonnen wird mit dem simpelsten Problem: einem Rucksack mit Kapazität 0 und mit einem Gegenstand.
+
+Begonnen wird mit dem einfachsten Problem: einem Rucksack mit Kapazität 0 mit einem Gegenstand zu füllen.
 Die Kapazität wird schrittweise erhöht bis die Originalkapazität erreicht ist.
 Es wird bei jeder Erhöhung der Kapazität geprüft, ob der Gegenstand hinzugefügt werden kann
 und ob dies einen Vorteil gegenüber der vorherigen Iteration bringt.
-Der Gegenstand wird hinzugefügt oder nicht basierend darauf was am meisten gewinn erzielt.
-Dann wird der nächste Gegenstand genommen und die Kapazität des Rucksacks wieder auf 0 gesetzt.
+Der Gegenstand wird hinzugefügt oder nicht basierend darauf was den Wert im Rucksack am höchsten werden lässt.
+Dann wird der nächste Gegenstand dazu genommen und die Kapazität des Rucksacks wieder auf 0 gesetzt.
 Wichtig ist dabei, dass die Gegenstände im Wert absteigend ausgewählt werden.
-Nun wird wieder mit der Erhöhung der Rucksack Kapazität begonnen.
+Mit einem Gegenstand mehr wird wieder mit der Erhöhung der Rucksack Kapazität von 0 bis zur Originalkapazität begonnen.
 Das wird so lange wiederholt, bis versucht wurde alle Gegenstände hinzuzufügen~\cite{scheiterhauer2008}.
 Der maximal erzielbare Wert im Rucksack steht im unteren rechten Feld der Matrix,
 und ist das Ergebnis des Algorithmus.
 
-In~\ref{lst:gg} ist dieser Algorithmus beispielhaft in Python implementiert.
+In~\ref{lst:dyn_opt} ist dieser Algorithmus beispielhaft in Python implementiert.
 Die Tabelle~\ref{table:2} zeigt das Ergebnis dieses Algorithmus für die Eingabe aus~\ref{table:1}.
 Um herauszufinden welche Gegenstände in den Rucksack aufgenommen wurden,
 muss die Matrix einfach schrittweise zurückverfolgt werden.
@@ -296,8 +318,8 @@ muss die Matrix einfach schrittweise zurückverfolgt werden.
   \label{table:2}
 \end{table}
 
-
-\begin{lstlisting}[language=Python,style=light,caption={Gilmore Gomoroy in Python}, label={lst:gg}]
+%% TODO schauen, dass code auszug nicht von Tabelle zerstört wird.
+\begin{lstlisting}[language=Python,style=light,caption={Gilmore Gomoroy in Python}, label={lst:dyn_opt}]
 from numpy import zeros
 
 def gilmore_gomoroy(v, c):
@@ -329,51 +351,9 @@ Der Algorithmus hat die Komplexität \(O(nc)\),
 wobei \(c\) die maximale Kapazität des Rucksacks darstellt.
 Algorithmen mit einer solchen Komplexität werden \emph{pseudo- polynomial} genannt~\cite{scheiterhauer2008}.
 
-\subsection{Algorithmus von Bellman und Dantzig}
-\FloatBarrier
-Der Algorithmus von Bellman und Dantzig ist ein pseudopolynomieller Algorithmus für das ganzzahlige Rucksackproblem. Tabelle~\ref{BellmanDantzigIO} zeigt die Ein- und Ausgabewerte des Algorithmus.
+\section{Annäherungsverfahren}
 
-\begin{table}
-  \renewcommand{\arraystretch}{1.2}
-  \centering
-  \begin{tabular}{c|c}
-    Eingabe & \(n, c_1,...c_n, w_1,...,w_n\) und W, jeweils aus \natnums \\
-    \hline
-    Ausgabe & Eine Teilmenge \(S \subseteq \{1,...,n\}\) mit \(\sum_{j\in S}w_j \leq W\), die \(\sum_{j \in S}c_j\) maximiert
-  \end{tabular}
-  \caption{Ein- und Ausgabe des Algorithmus}
-  \label{BellmanDantzigIO}
-\end{table}
-
-\begin{enumerate}
-\item C ist eine beliebige obere Schanke für den Optimalwert
-\item \(x(0,0):=0, x(0,k):=\infty\) für \(k=1,...,C\)
-\item Berechnune die Teilmengen:\\
-  \textbf{for} j in range(1,n):\\
-  \hspace*{5mm}\textbf{for} k in range(0,C):\\
-  \hspace*{10mm}s(j,k)=0\\
-  \hspace*{10mm}x(j,k)=x(j-1,k)\\
-  \hspace*{5mm}\textbf{for} k in range(\(c_j\),C):\\
-  \hspace*{10mm}\textbf{if} \(x(j-1,k-c_j)+w_j <= min\{W,x(j,k)\}:\)\\
-  \hspace*{15mm}\(x(j,k)=x(j-1,k-c_j)+w_j\)\\
-  \hspace*{15mm}\(s(j,k)=1\)\\
-\item Wähle beste zulässige Teilmenge:\\
-  \(k=\max\{i \in \{0,...,C\}:x(n,i)<\infty\}\)\\
-  S=\{\}\\
-  \textbf{for} j in range(n,1,-1):\\
-  \hspace*{5mm}\textbf{if} s(j,k)==1:\\
-  \hspace*{10mm}\(S=S \cup \{j\}\)\\
-  \hspace*{10mm}\(k=k-c_j\)
-\end{enumerate}
-
-Dieser Algorithmus hat eine Laufzeit von O(nW). Durch den Trick \(C:=\sum_{j\in S}^nc_j\) zu setzten erhält man eine Laufzeit von O(nC). Diese O(nC) Schranke ist nicht polynomiell in der Eingabegröße, jedoch erweist sich dieser Algorithmus in der Praxis, für kleinere Zahlen, als effizient.
-\cite[Kap. 17]{KombinatorischeOptimierung}
-\FloatBarrier
-
-\subsection{Annäherungsalgorithmen}
-
-
-\subsubsection{Greedy Algorhitmus}
+\subsection{Greedy Algorithmus}
 
 % TODO vielleicht ein beispiel hier?
 
@@ -390,6 +370,22 @@ Für das 0-1-Rucksackproblem Problem gibt es mehrere Greedy Strategien.
 
 Dabei erzielt die letzte Strategie in der Praxis die besten Ergebnisse~\cite{paper102}.\\
 Die Zeitkomplexität dieses Algorithmus ist \(O(n\log n)\)
+
+\subsection{voll-polynomielles Approximationsverfahren}
+
+Für das Rucksackproblem gibt es kein Polynomielles Lösungsverfahren.
+Mithilfe des Lösungsverfahrens mit dynamischer Optimierung
+kann aber ein voll polynomielles Approximationsverfahren geschaffen werden.
+
+Die Laufzeit des Verfahrens mit dynamischer Optimierung
+hängt direkt von der Kapazität des Rucksacks ab.
+Daher liegt es nahe, die Gewichte und die Kapazität zu halbieren und abzurunden.
+
+\[
+  a^*_i := \left\lfloor\frac{a_i}{t}\right\rfloor \;:\; i\in I\;;\; b^* := \left\lfloor\frac{b}{t}\right\rfloor
+\]
+
+damit ist die Laufzeit des Algorithmus in Abschnitt~\ref{sec:dyn_opt} \(O()\)
 
 \newpage
 \printbibliography
