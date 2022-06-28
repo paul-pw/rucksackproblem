@@ -407,7 +407,19 @@ Daher liegt es nahe, die Gewichte und die Kapazität zu halbieren und abzurunden
 
 Damit kann die Laufzeit des Algorithmus in Abschnitt~\ref{sec:dyn_opt}
 von \(O(nb)\) auf \(O(n\frac{b}{t})\) reduziert werden.
-% TODO hier weitermachen
+Dieser Algorithmus ist allerdings weiterhin \emph{pseudo- polynomial},
+da die Abhängigkeit von \(b\) weiterhin besteht.
+
+Dieses Approximationsverfahren kann allerdings in ein voll polynomiales Verfahren umgewandelt werden,
+wenn \(t=\epsilon\cdot\frac{b}{n}\).
+Demnach ergibt sich ein, von einem beliebigen \(\epsilon>0\) abhängiger Approximationsalgorithmus
+mit
+
+\[
+  O(n\frac{b}{t})=O(n\frac{b}{\epsilon\cdot\frac{b}{n}})=O(n^2\cdot\frac{1}{\epsilon})
+\]
+
+Das Approximationsverfahren ist also \emph{voll-polynomiell}.
 
 % TODO weitere Rucksackprobleme wie z.b. Multiple choice Rucksackproblem (siehe \cite{intro_survey})
 
