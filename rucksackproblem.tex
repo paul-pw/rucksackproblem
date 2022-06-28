@@ -154,6 +154,8 @@
 %%%%%% 
 
 \section{Einleitung}
+% TODO entweder diese Überschrift weg oder hier noch was hinschreiben
+% ein kleiner abstract könnte hier gut passen.
 
 \section{Problemstellung}
 
@@ -220,7 +222,7 @@ und benötigt dafür deutlich länger als polynome Zeit.
 \(\mathcal{NP}\)-vollständige Probleme sind daher für einen Computer
 die am schwersten zu lösenden Probleme.
 
-Ob sich \(\mathcal{NP}\)-vollständige Probleme in \(\mathcal{P}\) Probleme umformen lassen,
+Ob sich \(\mathcal{NP}\)-vollständige Probleme allgemein in \(\mathcal{P}\) Probleme umformen lassen,
 ist eine bisher ungelöste Frage~\cite[Kap. 15]{KombinatorischeOptimierung}.
 
 \section{Anwendungen}
@@ -283,9 +285,23 @@ Der maximal erzielbare Wert im Rucksack steht im unteren rechten Feld der Matrix
 und ist das Ergebnis des Algorithmus.
 
 In~\ref{lst:dyn_opt} ist dieser Algorithmus beispielhaft in Python implementiert.
-Die Tabelle~\ref{table:2} zeigt das Ergebnis dieses Algorithmus für die Eingabe aus~\ref{table:1}.
+Die Tabelle~\ref{tab:mat} zeigt das Ergebnis dieses Algorithmus für die Eingabe aus~\ref{tab:input}.
+
 Um herauszufinden welche Gegenstände in den Rucksack aufgenommen wurden,
-muss die Matrix einfach schrittweise zurückverfolgt werden.
+muss die Matrix schrittweise zurückverfolgt werden.
+Begonnen wird dabei mit dem unteren rechten Eintrag der Matrix.
+Ein Gegenstand \(i\) ist im Rucksack vorhanden,
+wenn im Vergleich zum vorherigen Gegenstand ein Gewinn erzielt wurde,
+also \(m(i,j)\neq m(i-1,j)\) mit \(m\) als Lösungsmatrix (siehe~\ref{tab:mat}).
+Dieser Gegenstand wird dann dem Rucksack hinzugefügt
+und die verbleibende Kapazität im Rucksack verringert.
+Der nächste Eintrag in der Matrix der betrachtet werden muss
+ist dann also \(m(i-1,j-weight[i])\).\\
+Wenn \(m(i,j) = m(i-1,j)\) gilt,
+dann ist der Gegenstand \(i\) nicht im Rucksack vorhanden.
+Der nächste Matrixeintrag der betrachtet werden muss ist dann \(m(i-1,j)\).\\
+Das wird wiederholt bis der obere linke Matrixeintrag erreicht ist.
+
 
 \begin{table}
   \renewcommand{\arraystretch}{1.2}
@@ -299,7 +315,7 @@ muss die Matrix einfach schrittweise zurückverfolgt werden.
     200€ & 1kg     & 4
   \end{tabular}
   \caption{Werte}
-  \label{table:1}
+  \label{tab:input}
 \end{table}
 
 \begin{table}
@@ -315,28 +331,28 @@ muss die Matrix einfach schrittweise zurückverfolgt werden.
     4 & 0€  & 200€ & 300€ & 500€ & 600€ & 700€ & 900€
   \end{tabular}
   \caption{Lösungsmatrix}
-  \label{table:2}
+  \label{tab:mat}
 \end{table}
 
-%% TODO schauen, dass code auszug nicht von Tabelle zerstört wird.
-\begin{lstlisting}[language=Python,style=light,caption={Gilmore Gomoroy in Python}, label={lst:dyn_opt}]
+\begin{figure}
+  \begin{lstlisting}[language=Python,style=light,caption={Gilmore Gomoroy in Python}, label={lst:dyn_opt}]
 from numpy import zeros
 
-def gilmore_gomoroy(v, c):
+def gilmore_gomoroy(v, b):
   """
   Parameters: 
   v (array) list of (value, weight) tuples
-  c (int) knapsack capacity
+  b (int) knapsack capacity
 
   Returns
   m (array): solution matrix
   """
 
   # Matrix with solution
-  m = zeros((len(v)+1, c+1))
+  m = zeros((len(v)+1, b+1))
 
   for i in range(1, len(v)+1):
-    for j in range(1, c+1):
+    for j in range(1, b+1):
       weight = v[i-1][1]
       value = v[i-1][0]
       if weight > j:
@@ -346,10 +362,14 @@ def gilmore_gomoroy(v, c):
 
   return m
 \end{lstlisting}
+\end{figure}
 
-Der Algorithmus hat die Komplexität \(O(nc)\),
-wobei \(c\) die maximale Kapazität des Rucksacks darstellt.
+Der Algorithmus hat die Komplexität \(O(nb)\),
+wobei \(b\) die maximale Kapazität des Rucksacks darstellt.
 Algorithmen mit einer solchen Komplexität werden \emph{pseudo- polynomial} genannt~\cite{scheiterhauer2008}.
+
+% TODO hier könnte noch gut die längste weg methode aus \cite*{scheiterhauer2008} Kap 2.3 hin 
+% TODO oder/und branch and bound aus paper102 / 1.2.2 aus mainKnapsack
 
 \section{Annäherungsverfahren}
 
@@ -371,11 +391,11 @@ Für das 0-1-Rucksackproblem Problem gibt es mehrere Greedy Strategien.
 Dabei erzielt die letzte Strategie in der Praxis die besten Ergebnisse~\cite{paper102}.\\
 Die Zeitkomplexität dieses Algorithmus ist \(O(n\log n)\)
 
-\subsection{voll-polynomielles Approximationsverfahren}
+\subsection{Voll-polynomielles Approximationsverfahren}
 
 Für das Rucksackproblem gibt es kein Polynomielles Lösungsverfahren.
 Mithilfe des Lösungsverfahrens mit dynamischer Optimierung
-kann aber ein voll polynomielles Approximationsverfahren geschaffen werden.
+kann aber ein voll polynomielles Approximationsverfahren geschaffen werden~\cite{KombinatorischeOptimierung}.
 
 Die Laufzeit des Verfahrens mit dynamischer Optimierung
 hängt direkt von der Kapazität des Rucksacks ab.
@@ -385,7 +405,12 @@ Daher liegt es nahe, die Gewichte und die Kapazität zu halbieren und abzurunden
   a^*_i := \left\lfloor\frac{a_i}{t}\right\rfloor \;:\; i\in I\;;\; b^* := \left\lfloor\frac{b}{t}\right\rfloor
 \]
 
-damit ist die Laufzeit des Algorithmus in Abschnitt~\ref{sec:dyn_opt} \(O()\)
+Damit kann die Laufzeit des Algorithmus in Abschnitt~\ref{sec:dyn_opt}
+von \(O(nb)\) auf \(O(n\frac{b}{t})\) reduziert werden.
+% TODO hier weitermachen
+
+% TODO weitere Rucksackprobleme wie z.b. Multiple choice Rucksackproblem (siehe \cite{intro_survey})
+
 
 \newpage
 \printbibliography
