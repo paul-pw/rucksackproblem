@@ -206,17 +206,18 @@ In der Praxis gibt es aber einige Lösungsverfahren und einige Approximationsver
 \subsection{\(\mathcal{NP}\)-vollständige Probleme}
 
 Ein Algorithmus ist in polynomer Zeit lösbar,
-wenn für die Zeitkomplexität \(O(n^k)\) gilt.
+wenn für dessen Zeitkomplexität \(O(n^k)\) gilt.
 Dabei ist \(k\) eine positive ganze Zahl und \(n\) die Komplexität des Eingabewertes.
 Diese Algorithmen haben die Zeitkomplexität \(\mathcal{P}\) (Polynome Zeit).
 
-Algorithmen, die sich nicht mit dieser Zeitkomplexität beschreiben lassen,
+Algorithmen, die sich nicht innerhalb dieser Zeitkomplexität beschreiben lassen,
+also eine höhere Zeitkomplexität als die Polynome Zeit \(\mathcal{P}\) haben
 nennt man \(\mathcal{NP}\)-vollständige Probleme.
 Diese Probleme lassen sich nur mithilfe von Nichtdeterministischen Operationen
 in polynomer Zeit lösen.
 Am Modell einer Turing-Maschine erklärt bedeutet Nichtdeterminismus,
 dass der Nächste Zustand nicht unbedingt durch die vorhergehenden Zustände bestimmt ist.
-Während eine Nichtdeterministische Turing-Maschine die richtige Auswahl in polynomer Zeit weiß,
+Während eine Nichtdeterministische Turing-Maschine die richtige Auswahl in polynomer Zeit berechnen kann,
 muss eine deterministische Turing-Maschine alle Möglichkeiten ausprobieren, um die richtige Auswahl zu erhalten
 und benötigt dafür deutlich länger als polynome Zeit.
 \(\mathcal{NP}\)-vollständige Probleme sind daher für einen Computer
@@ -368,14 +369,12 @@ Der Algorithmus hat die Komplexität \(O(nb)\),
 wobei \(b\) die maximale Kapazität des Rucksacks darstellt.
 Algorithmen mit einer solchen Komplexität werden \emph{pseudo- polynomial} genannt~\cite{scheiterhauer2008}.
 
-% TODO hier könnte noch gut die längste weg methode aus \cite*{scheiterhauer2008} Kap 2.3 hin 
+% TODO hier könnte noch gut die längste weg methode aus \cite{scheiterhauer2008} Kap 2.3 hin 
 % TODO oder/und branch and bound aus paper102 / 1.2.2 aus mainKnapsack
 
 \section{Annäherungsverfahren}
 
 \subsection{Greedy Algorithmus}
-
-% TODO vielleicht ein beispiel hier?
 
 Bei vielen Optimierungsproblemen wird ein Greedy Algorithmus eingesetzt,
 um das Problem zu lösen oder die Lösung zumindest gut annähern zu können~\cite{paper102}.
