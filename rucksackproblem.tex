@@ -252,6 +252,17 @@ auch bei anderen ganzzahligen linearen Optimierungsproblemen verwendet werden.
 Eine Problemvariante des Rucksackproblems, die Subset Sum wird in der Kryptographie verwendet,
 beispielsweise beim Merkle-Hellman-Kryptosystem.
 
+\section{Techniken zur effizienten Lösung von Rucksackproblemen}
+Da alle Rucksackprobleme NP-schwer sind ist es unwahrscheinlich, dass jemals ein polynomieller Lösungsalgorithmus gefunden wird. Deshalb müssen Algorithmen eingesetzt werden, die den Lösungsraum ganz oder teilweise auflisten. Um diese Algorithmen effizienter zu gestalten wurden einige Techniken entwickelt, die die speziellen struckturellen Eigenschaften von Rucksackproblemen ausnutzen, und es ermöglichen auch größere Probleme in Bruchteilen einer Sekunde zu lösen. Im Folgenden werden einiger dieser Techniken betrachtet.
+\subsection{Branch-and-bound}
+Im Grunde eine komplette Auflistung des Lösungsraumes, allerdings werden Nodes, die nicht zu einer besseren Lösung führen können, durch die Verwendung von Grenzen, direkt aussortiert.
+\subsection{Dynamische Programmierung}
+Die Auflistung des Lösungsraumes erfolgt wie bei einer Breitensuche, allerdings werden zusätzliche Dominanzregeln eingeführt. Durch das Hinzufügen von Grenzbedingungen zur dynamischen Programmierung, können fortgeschrittene Formen von branch-and-bound Algorithmen erzeugt werden.
+\subsection{State space relaxation}
+State space relaxation ist eine abgeschwächte Form der dynamischen Programmierung. Bei dieser Technik werden die Koeffizienten mit einem festen Wert multipliziert um die Zeitliche und Räumliche Komplexität zu verringern. Dadurch wird allerdings auch die Genauigkeit verringert und ein zuvor optimaler Algorithmus wird zu einem Näherungsalgoritmus.
+\subsection{Preprocessing}
+Als Preprocessing wird das Festlegen von Variablen des Lösungsraumes, vor dem Start des eigentlichen Lösungsalgorithmus bezeichnet. Dies wird durch die Durchführung von Grenztests ermöglicht, durch die einige Werte für die Lösungsvariable ausgeschlossen werden können.
+
 \section{Lösungsansverfahren}
 
 \subsection{Brute Force}
