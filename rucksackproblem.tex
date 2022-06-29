@@ -197,7 +197,7 @@ Das am häufigsten auftretende Rucksackproblem ist das 0-1-Rucksackproblem.
 Ein Begrenztes Rucksackproblem kann zu einem 0-1-Rucksackproblem vereinfacht werden, indem \(u_i=1\) gesetzt wird. Dann gilt:
 
 \[
-  f(b):=\max(\sum_{i\in I}c_i : \sum_{i\in I}a_i\leq b, i\in I)
+  f(b):=\max(\sum_{i\in I}c_i x_i : \sum_{i\in I}a_i x_i\leq b,x_i=\{0,1\}, i\in I)
 \]
 
 Anschaulich bedeutet das, dass jeder Gegenstand nur genau einmal vorhanden ist
@@ -240,7 +240,7 @@ Das Rucksackproblem tritt in der realen Welt häufiger bei Optimierungsproblemen
 speziell bei Problemen in der Ressourcen Allokation auf.
 Man denke beispielsweise an einen LKW, der ein bestimmtes Transportvolumen hat und Güter,
 die bei verschiedenem Volumen einen unterschiedlichen Gewinn erzielen.
-Oder ein Containerschiff das ein bestimmtes Gewicht Tragen kann
+Oder ein Containerschiff das ein bestimmtes Gewicht tragen kann
 und Container mit unterschiedlichem Gewicht und Gewinn.
 
 Zusätzlich zu den praktischen Anwendungen gibt es auch theoretische Anwendungen für das Rucksackproblem.
