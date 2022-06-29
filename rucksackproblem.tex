@@ -253,17 +253,57 @@ Eine Problemvariante des Rucksackproblems, die Subset Sum wird in der Kryptograp
 beispielsweise beim Merkle-Hellman-Kryptosystem.
 
 \section{Techniken zur effizienten Lösung von Rucksackproblemen}
-Da alle Rucksackprobleme NP-schwer sind ist es unwahrscheinlich, dass jemals ein polynomieller Lösungsalgorithmus gefunden wird. Deshalb müssen Algorithmen eingesetzt werden, die den Lösungsraum ganz oder teilweise auflisten. Um diese Algorithmen effizienter zu gestalten wurden einige Techniken entwickelt, die die speziellen struckturellen Eigenschaften von Rucksackproblemen ausnutzen, und es ermöglichen auch größere Probleme in Bruchteilen einer Sekunde zu lösen. Im Folgenden werden einiger dieser Techniken betrachtet.
+
+Da alle Rucksackprobleme \(\mathcal{NP}\)-schwer sind ist es unwahrscheinlich,
+dass jemals ein polynomieller Lösungsalgorithmus gefunden wird.
+Deshalb müssen Algorithmen eingesetzt werden,
+die den Lösungsraum ganz oder teilweise auflisten.
+Um diese Algorithmen effizienter zu gestalten wurden einige Techniken entwickelt,
+die den Lösungsraum eingrenzen können und so eine effizientere Lösung schaffen.
+Sie nutzen speziellen strukturellen Eigenschaften von Rucksackproblemen aus
+und ermöglichen es auch größere Probleme in Bruchteilen einer Sekunde zu lösen.
+Im Folgenden werden einiger dieser Techniken betrachtet.
+
+Die in~\ref{sec:loesung} und~\ref{sec:approx} vorgestellten Lösungs- und Approximationsverfahren
+nutzen die hier vorgestellten Techniken entweder oder können durch sie noch weiter beschleunigt werden.
+
 \subsection{Branch-and-bound}
-Im Grunde eine komplette Auflistung des Lösungsraumes, allerdings werden Nodes, die nicht zu einer besseren Lösung führen können, durch die Verwendung von Grenzen, direkt aussortiert.
+
+Im Grunde eine komplette Auflistung des Lösungsraumes in Form eines Baumes.
+Hier wird die Rucksack-Kapazität bei jeder Baumebene vergrößert.
+Anstatt bei jeder Baumebene alle Möglichkeiten zu bilden,
+werden allerdings Zweige,
+die nicht zu einer besseren Lösung führen können,
+direkt aussortiert.
+Dies geschieht durch die Verwendung von Grenzen~\cite{algos_knapsack}.
+
 \subsection{Dynamische Programmierung}
-Die Auflistung des Lösungsraumes erfolgt wie bei einer Breitensuche, allerdings werden zusätzliche Dominanzregeln eingeführt. Durch das Hinzufügen von Grenzbedingungen zur dynamischen Programmierung, können fortgeschrittene Formen von branch-and-bound Algorithmen erzeugt werden.
+
+Die Auflistung des Lösungsraumes erfolgt ähnlich einer Breitensuche,
+allerdings werden zusätzliche Dominanz regeln eingeführt.
+Durch das Hinzufügen von Grenzbedingungen zur dynamischen Programmierung
+können fortgeschrittene Formen von Branch-and-bound Algorithmen erzeugt werden~\cite{algos_knapsack}.
+Dieses Verfahren wird in~\ref{sec:dyn_opt} genauer dargestellt.
+
 \subsection{State space relaxation}
-State space relaxation ist eine abgeschwächte Form der dynamischen Programmierung. Bei dieser Technik werden die Koeffizienten mit einem festen Wert multipliziert um die Zeitliche und Räumliche Komplexität zu verringern. Dadurch wird allerdings auch die Genauigkeit verringert und ein zuvor optimaler Algorithmus wird zu einem Näherungsalgoritmus.
+
+State space relaxation ist eine abgeschwächte Form der dynamischen Programmierung.
+Bei dieser Technik werden die Koeffizienten mit einem festen Wert multipliziert,
+um die Zeitliche und räumliche Komplexität zu verringern~\cite{algos_knapsack}.
+Dadurch wird allerdings auch die Genauigkeit verringert
+und ein zuvor optimaler Algorithmus wird zu einem Näherungsalgorithmus.
+Diese Technik wird von dem \emph{voll-polynomiellen Approximationsverfahren} in~\ref{sec:vp_approx} verwendet.
+
 \subsection{Preprocessing}
-Als Preprocessing wird das Festlegen von Variablen des Lösungsraumes, vor dem Start des eigentlichen Lösungsalgorithmus bezeichnet. Dies wird durch die Durchführung von Grenztests ermöglicht, durch die einige Werte für die Lösungsvariable ausgeschlossen werden können.
+
+Als Preprocessing wird das Festlegen von Variablen des Lösungsraumes,
+vor dem Start des eigentlichen Lösungsalgorithmus bezeichnet.
+Dies wird durch die Durchführung von Grenztests ermöglicht,
+durch die einige Werte für die Lösungsvariable ausgeschlossen werden können~\cite{algos_knapsack}.
+So Werden Gegenstände deren Gewicht über die Rucksack-Kapazität direkt aussortiert.
 
 \section{Lösungsansverfahren}
+\label{sec:loesung}
 
 \subsection{Brute Force}
 
@@ -325,7 +365,7 @@ Das wird wiederholt bis der obere linke Matrixeintrag erreicht ist.
   \renewcommand{\arraystretch}{1.2}
   \centering
   \begin{tabular}{c|c|c}
-    wert & gewicht & index \\
+    Wert & Gewicht & Index \\
     \hline
     500€ & 4kg     & 1     \\
     400€ & 3kg     & 2     \\
@@ -390,6 +430,7 @@ Algorithmen mit einer solchen Komplexität werden \emph{pseudo- polynomial} gena
 % TODO oder/und branch and bound aus paper102 / 1.2.2 aus mainKnapsack
 
 \section{Annäherungsverfahren}
+\label{sec:approx}
 
 \subsection{Greedy Algorithmus}
 
@@ -408,6 +449,7 @@ Dabei erzielt die letzte Strategie in der Praxis die besten Ergebnisse~\cite{pap
 Die Zeitkomplexität dieses Algorithmus ist \(O(n\log n)\)
 
 \subsection{Voll-polynomielles Approximationsverfahren}
+\label{sec:vp_approx}
 
 Für das Rucksackproblem gibt es kein Polynomielles Lösungsverfahren.
 Mithilfe des Lösungsverfahrens mit dynamischer Optimierung
@@ -439,7 +481,7 @@ Das Approximationsverfahren ist also \emph{voll-polynomiell}.
 
 % TODO weitere Rucksackprobleme wie z.b. Multiple choice Rucksackproblem (siehe \cite{intro_survey})
 \section{Arten von Rucksackproblemen}
-Das Rucksackproblem hat zahlreiche Varianten für unterschiedliche Anwendungsfälle. Im Folgenden sollen die Hauptcharakteristika einiger dieser Varianten erklärt werden. 
+Das Rucksackproblem hat zahlreiche Varianten für unterschiedliche Anwendungsfälle. Im Folgenden sollen die Hauptcharakteristika einiger dieser Varianten erklärt werden.
 \subsection{0-1 Rucksackproblem}
 Jeder Gegenstand kann maximal ein mal gewählt werden.
 \subsection{Begrenztes Rucksackproblem}
