@@ -164,6 +164,7 @@ Neben dem 0-1-Rucksackproblem werden auch weitere Probleme
 in der Kategorie der Rucksackprobleme vorgestellt.
 
 \section{Problemstellung}
+\label{sec:problem}
 
 Ein Rucksack hat eine bestimmte Tragekapazität (z.b. 6 Kg)
 ein Dieb packt bei einem Wohnungsraub sein Diebesgut in diesen Rucksack.
@@ -479,29 +480,74 @@ mit
 
 Das Approximationsverfahren ist also \emph{voll-polynomiell}.
 
-% TODO weitere Rucksackprobleme wie z.b. Multiple choice Rucksackproblem (siehe \cite{intro_survey})
 \section{Arten von Rucksackproblemen}
 Das Rucksackproblem hat zahlreiche Varianten für unterschiedliche Anwendungsfälle. Im Folgenden sollen die Hauptcharakteristika einiger dieser Varianten erklärt werden.
-\subsection{0-1 Rucksackproblem}
-Jeder Gegenstand kann maximal ein mal gewählt werden.
 \subsection{Begrenztes Rucksackproblem}
-Für jeden Gegenstand gibt es eine obere Grenze, wie oft dieser vorhanden ist, beziehungsweise in den Rucksack gepackt werden kann. Diese Grenze kann eine positive Ganze Zahl oder Unendlich sein.
+\label{sec:bound_knapsack}
+
+Dieses Rucksackproblem wurde in~\ref{sec:problem} schon vorgestellt.
+Jeden Gegenstand, der in den Rucksack gepackt werden soll, gibt es nur bestimmt oft.
+Es eine obere Grenze.
+Diese Grenze ist eine positive ganze Zahl.
+
+\subsection{0-1 Rucksackproblem}
+
+Gleich wie in~\ref{sec:bound_knapsack} mit dem Unterschied,
+dass jeder Gegenstand nur einmal vorhanden ist.
+Die obere Grenze ist also 1.
+
 \subsection{Unbegrenztes Rucksackproblem}
-Jeder Gegenstand kann unendlich oft gewählt werden.
+
+Gleich wie in~\ref{sec:bound_knapsack} nur ohne obere Grenze.
+Jeder Gegenstand kann beliebig oft gewählt werden.
+
 \subsection{Multiple-choice Rucksackproblem}
-Die Gegenstände sind in mehrere Klassen aufgeteilt. Aus jeder Klasse muss genau ein Gegenstand gewählt werden.
+
+Die Gegenstände sind in mehrere Klassen aufgeteilt.
+Aus jeder Klasse muss genau ein Gegenstand gewählt werden.
+Man stelle sich hier vor das ein Rucksack zum Wandern gepackt werden soll
+und ein Getränk aus mehreren Marken ausgewählt werden muss,
+eine Packung Müsliriegel aus mehreren Marken ausgewählt werden muss und so weiter.
+
 \subsection{Multiple Knapsack Problem}
+
+% TODO(@Tom) hier gibts noch mehr auszuarbeiten... wie werden die rucksäcke befüllt, was ist das ziel? sonnst einfach raus machen.
 Es gibt mehrere zu befüllende Rucksäcke mit ihren jeweiligen Kapazitäten.
+
 \subsection{Multi-constrained Knapsack Problem}
-Bezeichnet ein Rucksackproblem mit mehreren einschränkenden Größen, zum Beispiel Gewicht und Volumen.
+
+Bezeichnet ein Rucksackproblem mit mehreren einschränkenden Größen,
+zum Beispiel Gewicht und Volumen.
+
 \subsection{Subset sum Problem}
-Bezeichnet ein Rucksackproblem, bei dem für alle Gegenstände Profit und Gewicht gleich sind. Dadurch müssen Profit und Gewicht nicht mehr separat voneinander bertrachtet werden. Das Problem kann jetzt als Suche nach der Menge derjenigen Werte betrachtet werden, deren Summe so groß wie möglich, aber nicht größer als die Kapazität des Rucksacks ist.
+
+Bezeichnet ein Rucksackproblem,
+bei dem für alle Gegenstände Wert und Gewicht proportional zueinander sind
+\(a_i\sim c_i : i\in I\) mit \(a_i\) als Gewicht, \(c_i\) als Wert und \(I=\{1,2,\ldots,m\}\).
+Dadurch müssen Wert und Gewicht nicht mehr separat voneinander betrachtet werden.
+Das Problem kann jetzt als Suche nach der Menge derjenigen Werte betrachtet werden,
+deren Summe so groß wie möglich,
+aber nicht größer als die Kapazität des Rucksacks ist.
+
 \subsection{Multiple subset sum Problem}
+
+% TODO gleiches wie \subsection{Multiple Knapsack Problem}
 Subset sum Problem mit mehreren Rucksäcken.
+
 \subsection{Das Rückgeldproblem}
-Bei diesem Problem muss die Kapazität des Rucksacks, mit so wenig Gegenständen wie möglich, exakt erreicht werden. Das Namengebende Beispiel ist ein Kassierer der, mit so wenig Münzen wie möglich, einen bestimmten Rückgeldbetrag auszahlen muss. Jeder Gegenstand (Münze) ist unendlich oft vorhanden.
-\subsection{Das Bin-packing Problem}
-Beim Bin-packing Problem gibt es gleich große Rucksäcke, die als Bin bezeichnet werden. Das ziel ist es alle n Gegestände so in die Bins zu verteilen, dass möglichst wenig Bins verwendet werden.
+
+Bei diesem Problem muss die Kapazität des Rucksacks,
+mit so wenig Gegenständen wie möglich exakt erreicht werden.
+Das namengebende Beispiel ist ein Kassierer der,
+mit so wenig Münzen wie möglich,
+einen bestimmten Rückgeldbetrag auszahlen muss.
+Jeder Gegenstand (Münze) ist unendlich oft vorhanden.
+
+\subsection{Das Bin-packing Problem} % TODO das würde ich rausmachen.
+Beim Bin-packing Problem gibt es gleich große Rucksäcke,
+die als Bin bezeichnet werden.
+Das ziel ist es alle \(n\) Gegenstände so in die Bins zu verteilen,
+dass möglichst wenig Bins verwendet werden.
 
 \newpage
 \printbibliography
