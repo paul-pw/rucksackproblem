@@ -211,6 +211,7 @@ den \(\mathcal{NP}\)-vollständigen Problemen~\cite{mainKnapsack}.
 In der Praxis gibt es aber einige gute Lösungs- und Approximationsverfahren.
 
 \subsection{\(\mathcal{NP}\)-vollständige Probleme}
+\label{sec:np}
 
 Ein Algorithmus ist in polynomer Zeit lösbar,
 wenn für dessen Zeitkomplexität \(O(n^k)\) gilt.
@@ -253,7 +254,8 @@ auch bei anderen ganzzahligen linearen Optimierungsproblemen verwendet werden.
 Eine Problemvariante des Rucksackproblems, die Subset Sum wird in der Kryptographie verwendet,
 beispielsweise beim Merkle-Hellman-Kryptosystem.
 
-\section{Techniken zur effizienten Lösung von Rucksackproblemen}
+% TODO titel vielleicht noch anpassen, sollte halt kurz genug sein dass nirgends Porbleme im Formatting auftreten. 
+\section{Techniken zur effizienteren Lösung}
 
 Da alle Rucksackprobleme \(\mathcal{NP}\)-schwer sind ist es unwahrscheinlich,
 dass jemals ein polynomieller Lösungsalgorithmus gefunden wird.
@@ -469,7 +471,7 @@ von \(O(nb)\) auf \(O(n\frac{b}{t})\) reduziert werden.
 Dieser Algorithmus ist allerdings weiterhin \emph{pseudo- polynomial},
 da die Abhängigkeit von \(b\) weiterhin besteht.
 
-Dieses Approximationsverfahren kann allerdings in ein voll polynomiales Verfahren umgewandelt werden,
+Dieses Approximationsverfahren kann allerdings in ein voll polynomielles Verfahren umgewandelt werden,
 wenn \(t=\epsilon\cdot\frac{b}{n}\).
 Demnach ergibt sich ein, von einem beliebigen \(\epsilon>0\) abhängiger Approximationsalgorithmus
 mit
@@ -478,7 +480,8 @@ mit
   O(n\frac{b}{t})=O(n\frac{b}{\epsilon\cdot\frac{b}{n}})=O(n^2\cdot\frac{1}{\epsilon})
 \]
 
-Das Approximationsverfahren ist also \emph{voll-polynomiell}.
+Nun Läuft das Verfahren in polynomer Zeit (siehe~\ref{sec:np}),
+das Approximationsverfahren ist also \emph{voll-polynomiell}.
 
 \section{Arten von Rucksackproblemen}
 Das Rucksackproblem hat zahlreiche Varianten für unterschiedliche Anwendungsfälle. Im Folgenden sollen die Hauptcharakteristika einiger dieser Varianten erklärt werden.
