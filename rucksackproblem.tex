@@ -345,7 +345,7 @@ Das wird so lange wiederholt, bis versucht wurde alle Gegenstände hinzuzufügen
 Der maximal erzielbare Wert im Rucksack steht im unteren rechten Feld der Matrix,
 und ist das Ergebnis des Algorithmus.
 
-In~\ref{lst:dyn_opt} ist dieser Algorithmus beispielhaft in Python implementiert.
+In Code-Auszug~\ref{lst:dyn_opt} ist dieser Algorithmus beispielhaft in Python implementiert.
 Die Tabelle~\ref{tab:mat} zeigt das Ergebnis dieses Algorithmus für die Eingabe aus Tabelle~\ref{tab:input}.
 
 Um herauszufinden welche Gegenstände in den Rucksack aufgenommen wurden,
@@ -431,7 +431,7 @@ Algorithmen mit einer solchen Komplexität werden \emph{pseudo- polynomial} gena
 
 % TODO hier könnte noch gut die längste weg methode aus \cite{scheiterhauer2008} Kap 2.3 hin 
 % TODO oder/und branch and bound aus paper102 / 1.2.2 aus mainKnapsack
-
+\FloatBarrier
 \section{Annäherungsverfahren}
 \label{sec:approx}
 
@@ -484,49 +484,81 @@ Nun Läuft das Verfahren in polynomer Zeit (siehe Abschnitt~\ref{sec:np}),
 das Approximationsverfahren ist also \emph{voll-polynomiell}.
 
 \section{Arten von Rucksackproblemen}
-Das Rucksackproblem hat zahlreiche Varianten für unterschiedliche Anwendungsfälle. 
-Im Folgenden sollen die Hauptcharakteristika einiger dieser Varianten erklärt werden.
+Neben den bereits vorgestellten Rucksackproblemen,
+dem begrenzten Rucksackproblem und dem 0-1-Rucksackproblem,
+gibt es noch zahlreiche weitere Formen von Rucksackproblemen. 
+Im Folgenden sollen beispielhaft die Hauptcharakteristika einiger dieser Varianten erklärt werden.
 
-\subsection{Begrenztes Rucksackproblem}
-\label{sec:bound_knapsack}
+%\subsection{Begrenztes Rucksackproblem}
+%\label{sec:bound_knapsack}
 
-Dieses Rucksackproblem wurde in~\ref{sec:problem} schon vorgestellt.
-Jeden Gegenstand, der in den Rucksack gepackt werden soll, gibt es nur bestimmt oft.
-Es eine obere Grenze.
-Diese Grenze ist eine positive ganze Zahl.
+%Dieses Rucksackproblem wurde in~\ref{sec:problem} schon vorgestellt.
+%Jeden Gegenstand, der in den Rucksack gepackt werden soll, gibt es nur bestimmt oft.
+%Es eine obere Grenze.
+%Diese Grenze ist eine positive ganze Zahl.
 
-\subsection{0-1 Rucksackproblem}
+%\[
+%  f(b):=\max(\sum_{i=1}^mc_ix_i : \sum_{i=1}^ma_ix_i\leq b, 0\leq x_i\leq u_i, x_i\in\natnums, i\in I)
+%\]
 
-Gleich wie in~\ref{sec:bound_knapsack} mit dem Unterschied,
-dass jeder Gegenstand nur einmal vorhanden ist.
-Die obere Grenze ist also 1.
+%\subsection{0-1 Rucksackproblem}
+
+%Gleich wie in~\ref{sec:bound_knapsack} mit dem Unterschied,
+%dass jeder Gegenstand nur einmal vorhanden ist.
+%Die obere Grenze ist also 1.
+
+%\[
+%  f(b):=\max(\sum_{i=1}^mc_ix_i : \sum_{i=1}^ma_ix_i\leq b, x_i\in\{0,1\}, i\in I)
+%\]
 
 \subsection{Unbegrenztes Rucksackproblem}
+%Gleich wie in~\ref{sec:bound_knapsack} nur ohne obere Grenze.
+%Jeder Gegenstand kann beliebig oft gewählt werden.
+%Bei diesem Rucksackproblem kann jeder Gegenstand beliebig oft gewählt werden.
 
-Gleich wie in~\ref{sec:bound_knapsack} nur ohne obere Grenze.
-Jeder Gegenstand kann beliebig oft gewählt werden.
+Dieses Rucksackproblem ist ähnlich zu den beiden bereits bekannten Varianten.
+Hier kann allerdings jeder Gegenstand beliebig oft gewählt werden.
+
+\[
+  f(b):=\max(\sum_{i=1}^mc_ix_i : \sum_{i=1}^ma_ix_i\leq b, 0\leq x_i, x_i\in\natnums, i\in I)
+\]
 
 \subsection{Multiple-choice Rucksackproblem}
 
-Die Gegenstände sind in mehrere Klassen aufgeteilt.
+Die Gegenstände sind in \(k\) Klassen \(K_j\), \(j=\{1,...,k\}\) aufgeteilt.
 Aus jeder Klasse muss genau ein Gegenstand gewählt werden.
 Man stelle sich hier vor das ein Rucksack zum Wandern gepackt werden soll
 und ein Getränk aus mehreren Marken ausgewählt werden muss,
 eine Packung Müsliriegel aus mehreren Marken ausgewählt werden muss und so weiter.
 
-\subsection{Multiple Knapsack Problem}
+\[
+f(b):=\max(\sum_{j=1}^k\sum_{i\in K_j}c_{ji}x_{ji} : \sum_{j=1}^k\sum_{i\in K_j}a_{ji}x_{ji}\leq b,
+\]\[
+(\sum_{i\in K_j}x_{ji}=1 : j=\{1,...,k\}),
+\]\[
+(x_{ji}\in \{0,1\} : j=\{1,...,k\}, i\in K_j),
+\]\[
+i\in I)
+\]
+
+%\subsection{Multiple Knapsack Problem}
 
 % TODO(@Tom) hier gibts noch mehr auszuarbeiten... wie werden die rucksäcke befüllt, was ist das ziel? sonnst einfach raus machen.
-Es gibt mehrere zu befüllende Rucksäcke mit ihren jeweiligen Kapazitäten.
+%Es gibt mehrere zu befüllende Rucksäcke mit ihren jeweiligen Kapazitäten.
 
 \subsection{Multi-constrained Knapsack Problem}
 
 Bezeichnet ein Rucksackproblem mit mehreren einschränkenden Größen,
 zum Beispiel Gewicht und Volumen.
+Allgemein formuliert gibt es \(n\) einschränkende Grenzen \(b_j\), \(j=\{1,...,n\}:
+
+\[
+  f(b):=\max(\sum_{i=1}^mc_ix_i : \sum_{i=1}^ma_{ji}x_i\leq b_j, j=\{0,...,n\}, 0\leq x_i, x_i\in\natnums, i\in I)
+\]
 
 \subsection{Subset sum Problem}
 
-Bezeichnet ein Rucksackproblem,
+Bezeichnet ein 0-1-Rucksackproblem,
 bei dem für alle Gegenstände Wert und Gewicht proportional zueinander sind
 \(a_i\sim c_i : i\in I\) mit \(a_i\) als Gewicht, \(c_i\) als Wert und \(I=\{1,2,\ldots,m\}\).
 Dadurch müssen Wert und Gewicht nicht mehr separat voneinander betrachtet werden.
@@ -534,10 +566,14 @@ Das Problem kann jetzt als Suche nach der Menge derjenigen Werte betrachtet werd
 deren Summe so groß wie möglich,
 aber nicht größer als die Kapazität des Rucksacks ist.
 
-\subsection{Multiple subset sum Problem}
+\[
+  f(b):=\max(\sum_{i=1}^mc_ix_i : \sum_{i=1}^ma_ix_i\leq b, x_i\in\{0,1\}, i\in I)
+\]
+
+%\subsection{Multiple subset sum Problem}
 
 % TODO gleiches wie \subsection{Multiple Knapsack Problem}
-Subset sum Problem mit mehreren Rucksäcken.
+%Subset sum Problem mit mehreren Rucksäcken.
 
 \subsection{Das Rückgeldproblem}
 
@@ -548,11 +584,15 @@ mit so wenig Münzen wie möglich,
 einen bestimmten Rückgeldbetrag auszahlen muss.
 Jeder Gegenstand (Münze) ist unendlich oft vorhanden.
 
-\subsection{Das Bin-packing Problem} % TODO das würde ich rausmachen.
-Beim Bin-packing Problem gibt es gleich große Rucksäcke,
-die als Bin bezeichnet werden.
-Das ziel ist es alle \(n\) Gegenstände so in die Bins zu verteilen,
-dass möglichst wenig Bins verwendet werden.
+\[
+  f(b):=\max(\sum_{i=1}^mx_i : \sum_{i=1}^ma_ix_i=b, 0\leq x_i, x_i\in\natnums, i\in I)
+\]
+
+%\subsection{Das Bin-packing Problem} % TODO das würde ich rausmachen.
+%Beim Bin-packing Problem gibt es gleich große Rucksäcke,
+%die als Bin bezeichnet werden.
+%Das ziel ist es alle \(n\) Gegenstände so in die Bins zu verteilen,
+%dass möglichst wenig Bins verwendet werden.
 
 \newpage
 \printbibliography
